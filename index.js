@@ -5,8 +5,9 @@ let cardContainer = document.getElementById('cardContainer')
 
 document.getElementById('searchBtn').addEventListener('click', () => {
     cardContainer.innerHTML = ''
-    fetchImg(searchText.value)
-    
+    let val = searchText.value
+    searchText.value = ''
+    fetchImg(val)
 })
 
 async function fetchImg(val){
