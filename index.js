@@ -6,29 +6,44 @@ let clearAllBtn = document.getElementById('clearAllBtn')
 let val;
 let page = 1;
 
-document.getElementById('searchBtn').addEventListener('click', () => {
-    page = 1;
-    cardContainer.innerHTML = ''
-    val = searchText.value
-    searchText.value = ''
-    fetchImg(val)
+document.getElementById('searchBtn').addEventListener('click', (e) => {
+    loadMoreBtn.classList.add('hidden')
+    clearAllBtn.classList.add('hidden')
+    e.preventDefault()
+    console.log("first")
+    if (searchText.value == '') {
+        console.log(searchText.value)
+        alert("Search Bar is empty")
+        return
+    } else {
+        page = 1;
+        cardContainer.innerHTML = ''
+        val = searchText.value
+        searchText.value = ''
+        fetchImg(val)
+    }
 })
 
 async function fetchImg(val){
     let response = await fetch(`https://api.unsplash.com/search/photos?query=${val}&client_id=${access_token}&page=${page}`)
     let result = await response.json()
-    if (result.results.length < 1) {
+    console.log(result)
+    if (result.results.length < 1 || !result) {
         cardContainer.innerHTML = `<h1 class="errorHeading">Not Found</h1>`
     } else {
         displayImg(result)
     }
 }
 
-function displayImg(res){
-    res.results.map(data => {
+function displayImg({results}){
+    console.log(results)
+    results.map(data => {
         let div = document.createElement('div')
+        let a = document.createElement('a')
+        // a.setAttribute('href' , `${data.links.html}`)
         div.setAttribute('class', 'card')
         div.innerHTML = `
+        <a href=${data.links.html} target="_blank" class="cardLink">
         <div class="cardTop">
             <img src=${data.user.profile_image.large} alt="" class="userImg">
             <p class="userName">${data.user.name}</p>
@@ -36,12 +51,12 @@ function displayImg(res){
         <div class="cardBottom">
             <img src=${data.urls.regular} alt="" class="mainImg">
             <p class="imgDes">${data.alt_description}</p>
-        </div>`
+        </div> </a>`
         cardContainer.appendChild(div)
     })
 
-    loadMoreBtn.classList.add('visible')
-    clearAllBtn.classList.add('visible')
+    loadMoreBtn.classList.remove('hidden')
+    clearAllBtn.classList.remove('hidden')
 }
 
 loadMoreBtn.addEventListener('click', () => {
@@ -55,3 +70,7 @@ clearAllBtn.addEventListener('click', () => {
     clearAllBtn.classList.add('hidden')
     cardContainer.innerHTML = ''
 })
+
+// card.addEventListener('click', () => {
+
+// })
