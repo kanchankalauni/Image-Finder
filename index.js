@@ -10,7 +10,7 @@ document.getElementById('searchBtn').addEventListener('click', (e) => {
     loadMoreBtn.classList.add('hidden')
     clearAllBtn.classList.add('hidden')
     e.preventDefault()
-    console.log("first")
+    // console.log("first")
     if (searchText.value == '') {
         console.log(searchText.value)
         alert("Search Bar is empty")
@@ -27,7 +27,7 @@ document.getElementById('searchBtn').addEventListener('click', (e) => {
 async function fetchImg(val){
     let response = await fetch(`https://api.unsplash.com/search/photos?query=${val}&client_id=${access_token}&page=${page}`)
     let result = await response.json()
-    console.log(result)
+    // console.log(result)
     if (result.results.length < 1 || !result) {
         cardContainer.innerHTML = `<h1 class="errorHeading">Not Found</h1>`
     } else {
@@ -36,7 +36,7 @@ async function fetchImg(val){
 }
 
 function displayImg({results}){
-    console.log(results)
+    // console.log(results)
     results.map(data => {
         let div = document.createElement('div')
         let a = document.createElement('a')
