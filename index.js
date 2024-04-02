@@ -70,7 +70,3 @@ clearAllBtn.addEventListener('click', () => {
     clearAllBtn.classList.add('hidden')
     cardContainer.innerHTML = ''
 })
-
-// card.addEventListener('click', () => {
-
-// })
