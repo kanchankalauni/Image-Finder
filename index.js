@@ -12,7 +12,7 @@ document.getElementById('searchBtn').addEventListener('click', (e) => {
     e.preventDefault()
     // console.log("first")
     if (searchText.value == '') {
-        console.log(searchText.value)
+        // console.log(searchText.value)
         alert("Search Bar is empty")
         return
     } else {
